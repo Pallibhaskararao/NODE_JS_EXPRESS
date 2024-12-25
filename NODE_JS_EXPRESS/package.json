@@ -1,0 +1,16 @@
+{
+  "name": "node-js-with-express",
+  "version": "1.0.0",
+  "description": "this the leaning of the node js with express",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Bhaskar",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "morgan": "^1.10.0"
+  }
+}
