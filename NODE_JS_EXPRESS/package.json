@@ -4,13 +4,15 @@
   "description": "this the leaning of the node js with express",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "Bhaskar",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "mongoose": "^8.9.3",
     "morgan": "^1.10.0"
   }
 }
