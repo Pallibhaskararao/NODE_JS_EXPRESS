@@ -1,33 +1,89 @@
 const Movie = require("./../models/movieModel");
 
-
-exports.getMovies = (req,res) =>{
-    
-};
-
-exports.createMovie = (req,res)=>{
-    
-};
-
-exports.getMovie = (req,res) =>{
-    
-};
-
-exports.updateMovie = (req,res) =>{
-
-};
-
-exports.deleteMovie = (req,res) =>{
-
-};
-
-exports.validateBody = (req,res,next) =>{
-    if(!req.body.name || !req.body.relese)
-    {
-        return res.status(400).json({
-            status : "failure",
-            message : "name and relese year are required"
-        })
+exports.getMovies = async (req,res) =>{
+    try{
+    const movies = await Movie.find(req.query);
+    // const movies = await Movie.find()
+    //                     .where('duration').equals(req.query.duration)
+    //                     .where('rating').equals(req.query.rating);
+    res.status(200).json({
+        status: 'success',
+        length : movies.length,
+        data:{
+            movies
+        }
+    });
+    }catch(err){
+        res.status(404).json({
+            status: 'fail',
+            message: err.message
+        });
     }
-    next();
+};
+
+exports.createMovie = async (req,res)=>{
+    try{
+    const movie = await Movie.create(req.body);
+        res.status(201).json({
+            status: 'success',
+            data:{
+                movie
+                }
+        });
+    }catch(err){
+        res.status(404).json({
+            status: 'fail',
+            message: err.message
+        });
+    }
+};
+
+exports.getMovie = async (req,res) =>{
+    try{
+    // const movie = Movie.find({_id : req.params.id});
+    const movie = await Movie.findById(req.params.id);
+    res.status(200).json({
+        status: 'success',
+        data:{
+            movie
+            }
+    });
+    }catch(err){
+        res.status(404).json({
+            status: 'fail',
+            message: err.message
+        });
+    }
+};
+
+exports.updateMovie = async (req,res) =>{
+    try{
+    const movieUpdate = await Movie.findByIdAndUpdate(req.params.id,req.body,{new:true ,runValidators : true ,upsert :true});
+        res.status(200).json({
+            status: 'success',
+            data:{
+                movie : movieUpdate
+                }
+        });
+        }catch(err){
+            res.status(404).json({
+                status: 'fail',
+                message: err.message
+            });
+        }
+};
+
+exports.deleteMovie = async (req,res) =>{
+    try{
+        await Movie.findByIdAndDelete(req.params.id);
+        res.status(204).json({
+            status: 'success',
+            data: null
+            });
+    }catch(err){
+        res.status(404).json({
+            status: 'fail',
+            message: err.message
+            });
+    }
 };

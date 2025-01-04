@@ -1,10 +1,9 @@
-const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-
 dotenv.config({path: "./config.env"});
-const app = require("./app");
+// console.log(process.env);
 
-console.log(process.env);
+const mongoose = require("mongoose");
+const app = require("./app");
 
 mongoose.connect(process.env.CONN_STR,{
     useNewUrlParser: true,
@@ -16,8 +15,7 @@ mongoose.connect(process.env.CONN_STR,{
 });
 
 
-
-// let port = process.env.PORT || 3000;
-// app.listen(port,()=>{
-//     console.log("the server is started");
-// });
+let port = process.env.PORT || 3000;
+app.listen(port,()=>{
+    console.log("the server is started......");
+});
