@@ -1,10 +1,19 @@
 const mongoose = require("mongoose");
 const fs = require("fs");
+const validator = require("validator");
+
 const movieSchema = mongoose.Schema({
     name : {
         type : String,
         required : [true,"this is must be filled"],
+        minLength : [4,"the minimum length is 4 charcters"],
+        maxLength : [100,"the maximum length is 100 characters"],
         unique : true,
+        // enum :{
+        //     values :["bhaskar","rahul","gowtham"],
+        //     message : "the name is not valid"
+        //     },
+        validate :[validator.isAlpha,"it only contains alphabets "],
         trim : true
     },
     description : {
@@ -18,6 +27,12 @@ const movieSchema = mongoose.Schema({
     },
     rating : {
         type : Number,
+        validate : {
+            validator : function(value){
+            return value >= 1 && value <=10;
+        },
+        message : "the rating must {VALUE} between 1 and 10"
+    }
     },
     totalRatings :{
         type : Number,
@@ -89,6 +104,11 @@ movieSchema.post(/^find/,function(docs,next) {
         console.log(err.message);
     })
     next()
+})
+
+movieSchema.pre("aggregate",function(next){
+    this.pipeline().unshift({$match : {releseDate : {$lte : new Date()}}});
+    next();
 })
 
 const Movie = mongoose.model("Movie",movieSchema);

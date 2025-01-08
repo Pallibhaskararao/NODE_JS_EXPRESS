@@ -21,7 +21,6 @@ class Appfeatures{
         }else{
             this.query = this.query.sort('-createdAt');
         }
-
         return this;
     }
 
@@ -32,7 +31,6 @@ class Appfeatures{
         }else{
             this.query = this.query.select('-__v');
         }
-
         return this;
     }
 
@@ -48,7 +46,6 @@ class Appfeatures{
         //         throw new Error("This page is not found!");
         //     }
         // }
-
         return this;
     }
 }

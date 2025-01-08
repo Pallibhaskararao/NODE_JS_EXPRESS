@@ -8,7 +8,7 @@ exports.getTopMovies =  (req,res,next) =>{
 exports.getStats = async (req,res) =>{
     try{
         const stats = await Movie.aggregate([
-            {$match :{rating :{$gte:3}}},
+            {$match :{rating :{$gte:1}}},
             {$group : {
                 _id : '$coverImage',
                 totalPrice : {$sum : '$price'},
